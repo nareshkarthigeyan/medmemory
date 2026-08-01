@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MedMemory
+
+**Your family's living medical memory.**
+
+MedMemory is an MVP that demonstrates product thinking for family health management. Instead of storing medical reports as files, it continuously understands and reconstructs a patient's medical history into a living timeline.
+
+## Core Insight
+
+> Families don't struggle because medical reports are lost. They struggle because medical knowledge is fragmented across years, doctors, hospitals, and family members.
+
+## Features
+
+- **Dashboard** — Patient overview, timeline preview, medications, latest reports
+- **Living Timeline** — Scrollable medical history reconstructed from reports
+- **Upload** — Drag & drop PDF/images with AI processing animation
+- **Report Viewer** — Extracted entities, confidence scores, verification flow
+- **Doctor Brief** — Printable appointment summary
+- **Emergency Mode** — Critical health info at a glance
+- **WhatsApp Input** — Simulate parent sending reports via WhatsApp
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- Tailwind CSS 4
+- shadcn/ui
+- Framer Motion
+- TypeScript
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo Flow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Landing** → Click "Try Demo"
+2. **Dashboard** → Explore Lakshmi Devi's (Mother) medical timeline
+3. **Upload** → Drop a file (try naming it `kidney-report.pdf` for kidney extraction demo)
+4. **Watch** → AI processing animation updates the timeline
+5. **Doctor Brief** → Generate printable summary
+6. **Settings** → Simulate WhatsApp report from parent
+7. **Emergency** → View critical health information
 
-## Learn More
+## AI Pipeline (Demo Mode)
 
-To learn more about Next.js, take a look at the following resources:
+The MVP uses a simulated AI pipeline with realistic processing delays. In production, this connects to:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Unlimited-OCR for text extraction
+- Gemini Flash / OpenRouter for entity extraction
+- Supabase for persistence
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Configure via environment variables (see `.env.example`).
 
-## Deploy on Vercel
+## Pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Route | Description |
+|-------|-------------|
+| `/` | Landing page |
+| `/dashboard` | Family health dashboard |
+| `/timeline` | Full medical timeline |
+| `/upload` | Report upload |
+| `/reports/[id]` | Report details |
+| `/doctor-brief` | Printable doctor brief |
+| `/emergency` | Emergency information |
+| `/settings` | Family & integrations |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Product Decisions
+
+**Built:** Living timeline, entity extraction, confidence scoring, doctor brief, WhatsApp input, emergency mode
+
+**Not built:** Appointment booking, telemedicine, medicine ordering, fitness tracking, AI chatbot
+
+---
+
+Built as a Product Management internship MVP demonstrating product thinking over feature count.
