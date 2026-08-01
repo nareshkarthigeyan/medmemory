@@ -11,6 +11,7 @@ import {
   Settings,
   Heart,
   Menu,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ const navItems = [
   { href: "/upload", label: "Upload", icon: Upload },
   { href: "/doctor-brief", label: "Doctor Brief", icon: FileText },
   { href: "/emergency", label: "Emergency", icon: AlertTriangle },
+  { href: "/whatsapp-demo", label: "WhatsApp Demo", icon: MessageCircle },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
