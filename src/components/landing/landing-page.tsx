@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Heart, Upload, Clock, FileText } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 
 const timelinePreview = [
   { year: "2021", event: "Diagnosed Type II Diabetes", color: "bg-emerald-500" },
@@ -39,17 +39,23 @@ export function LandingHero() {
             family&apos;s health.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link href="/dashboard">
-              <Button size="lg" className="h-12 px-8 text-base">
-                Try Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+            <Link
+              href="/dashboard"
+              className={buttonVariants({ size: "lg", className: "h-12 px-8 text-base" })}
+            >
+              Try Demo
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-            <Link href="/upload">
-              <Button size="lg" variant="outline" className="h-12 px-8 text-base">
-                <Upload className="mr-2 h-4 w-4" />
-                Upload Report
-              </Button>
+            <Link
+              href="/upload"
+              className={buttonVariants({
+                variant: "outline",
+                size: "lg",
+                className: "h-12 px-8 text-base",
+              })}
+            >
+              <Upload className="mr-2 h-4 w-4" />
+              Upload Report
             </Link>
           </div>
         </motion.div>
@@ -168,13 +174,11 @@ export function LandingNav() {
           <span className="text-lg font-semibold">MedMemory</span>
         </Link>
         <div className="flex items-center gap-3">
-          <Link href="/dashboard">
-            <Button variant="ghost" size="sm">
-              Demo
-            </Button>
+          <Link href="/dashboard" className={buttonVariants({ variant: "ghost", size: "sm" })}>
+            Demo
           </Link>
-          <Link href="/dashboard">
-            <Button size="sm">Get Started</Button>
+          <Link href="/dashboard" className={buttonVariants({ size: "sm" })}>
+            Get Started
           </Link>
         </div>
       </div>

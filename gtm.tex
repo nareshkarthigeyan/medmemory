@@ -1,0 +1,100 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.2cm, bottom=2.2cm, left=2.4cm, right=2.4cm]{geometry}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{setspace}
+
+\hypersetup{
+  colorlinks=false,
+  hidelinks
+}
+
+% Typography — serif font for direct Overleaf compilation
+\renewcommand{\familydefault}{\rmdefault}
+\setstretch{1.15}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\vspace{-4pt}\rule{\linewidth}{0.4pt}\vspace{2pt}]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{}{0em}{}
+\titlespacing{\section}{0pt}{18pt}{6pt}
+\titlespacing{\subsection}{0pt}{10pt}{3pt}
+\titlespacing{\subsubsection}{0pt}{6pt}{2pt}
+
+% List settings
+\setlist[itemize]{noitemsep, topsep=3pt, leftmargin=1.4em}
+\setlist[enumerate]{noitemsep, topsep=3pt, leftmargin=1.4em}
+
+% Table column types
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% Header / footer
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyhead[L]{\small\textbf{MedMemory}: Go-to-Market Note}
+\fancyhead[R]{\small K V Naresh Karthigeyan}
+\fancyfoot[C]{\small\thepage}
+
+\begin{document}
+
+% ─── TITLE BLOCK ─────────────────────────────────────────────────────────────
+\begin{center}
+  % {\large\textbf{MedMemory}}\\[4pt]
+  {\large Go-to-Market Note}\\[6pt]
+  {\large\textbf{MedMemory}}\\[4pt]
+  % \rule{\linewidth}{0.6pt}\\[4pt]
+  {\small K V Naresh Karthigeyan}
+\end{center}
+
+\vspace{3pt}
+% ─── GTM ─────────────────────────────────────────────────────────────────────
+
+\textit{Half a page, as requested. Sanity check, not a business plan.}
+
+\subsection*{How the first 100 users find out}
+
+The target early user is 28--35, lives in a metro, and manages health for a parent in a tier-2 city. They already feel the problem. They do not need convincing.
+
+\begin{itemize}
+  \item \textbf{WhatsApp communities.} Post in caregiver groups, NRI groups, chronic illness support circles. The hook is the WhatsApp upload flow --- it meets people where their report photos already live.
+  \item \textbf{One LinkedIn post.} Not a product ad. A story: ``My mother has three doctors and I live in Bangalore. This is how I fixed it.'' Shares do the distribution.
+  \item \textbf{Reddit and Quora.} r/india, r/IndianParents, r/ChronicIllness. Threads where people ask how to manage medical records for elderly parents. Answer genuinely, link as an aside.
+  \item \textbf{Doctor waiting rooms.} Printed QR cards. Doctors are often the ones who wish patients would arrive better prepared.
+\end{itemize}
+
+\subsection*{What to measure to know they're actually using it}
+
+Signups are noise. The metric that matters is \textbf{second upload rate}: what percentage of users who upload one report come back and upload a second within 30 days. That number tells you whether the product delivered enough value on the first use to earn the second.
+
+\vspace{4pt}
+\begin{tabularx}{\linewidth}{@{}L{7cm} X@{}}
+\toprule
+\textbf{Signal} & \textbf{What it tells you} \\
+\midrule
+Second upload rate (target: $>$40\% in 30 days) & Did the first experience create a reason to return? \\
+Doctor brief generated per report uploaded & Are users reaching the output, or dropping at the record stage? \\
+Verification rate on low-confidence entities & Are users trusting the AI enough to engage with corrections? \\
+Emergency page views & High = people using it for its core promise, not just filing. \\
+\midrule
+\textit{Metric to explicitly ignore: DAU} & \textit{This is not a daily-use product. Monthly active is the right unit.} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{8pt}
+
+One thing that would destroy early retention: a wrong medicine in the active list that a user does not catch. This is why human verification is in the critical path, not optional. The AI is wrong sometimes. The product has to be right.
+
+\end{document}

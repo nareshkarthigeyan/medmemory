@@ -1,0 +1,278 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[a4paper, top=2.2cm, bottom=2.2cm, left=2.4cm, right=2.4cm]{geometry}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{mdframed}
+\usepackage{setspace}
+
+\hypersetup{
+  colorlinks=false,
+  hidelinks
+}
+
+% Typography
+\renewcommand{\familydefault}{\sfdefault}
+\setstretch{1.15}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\vspace{-4pt}\rule{\linewidth}{0.4pt}\vspace{2pt}]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\itshape}{}{0em}{}
+\titlespacing{\section}{0pt}{18pt}{6pt}
+\titlespacing{\subsection}{0pt}{10pt}{3pt}
+\titlespacing{\subsubsection}{0pt}{6pt}{2pt}
+
+% List settings
+\setlist[itemize]{noitemsep, topsep=3pt, leftmargin=1.4em}
+\setlist[enumerate]{noitemsep, topsep=3pt, leftmargin=1.4em}
+
+% Table column types
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+% Header / footer
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyhead[L]{\small\textbf{MedMemory} --- Product Requirements Document}
+\fancyhead[R]{\small K V Naresh Karthigeyan}
+\fancyfoot[C]{\small\thepage}
+
+% Warning box
+\newmdenv[
+  leftmargin=0pt,
+  rightmargin=0pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  linewidth=0.6pt,
+  frametitle={},
+]{warnbox}
+
+\begin{document}
+
+% ─── TITLE BLOCK ─────────────────────────────────────────────────────────────
+\begin{center}
+  {\LARGE\textbf{MedMemory}}\\[4pt]
+  {\large Product Requirements Document \& Go-to-Market Note}\\[6pt]
+  \rule{\linewidth}{0.6pt}\\[4pt]
+  {\small K V Naresh Karthigeyan \quad\textbar\quad Cambridge Institute of Technology, Bengaluru \quad\textbar\quad PM Intern Assignment --- Cimba}
+\end{center}
+
+\vspace{6pt}
+
+% ─── 1. THE PROBLEM ──────────────────────────────────────────────────────────
+\section{The Problem}
+
+\textit{``My mother has three doctors. My father has two. And I live in a different city. The reports are in a plastic folder at home. Somebody photographs them sometimes.''}
+
+\vspace{4pt}
+
+The problem is not that families lack records. It is that records do not compound. Every new report lands in isolation --- a photograph in a WhatsApp chat, a PDF in someone's Downloads folder, a printout in a plastic sleeve. Nothing connects to what came before. The context lives only in the head of whoever last accompanied the patient.
+
+\subsection{Who this breaks for}
+
+\begin{itemize}
+  \item \textbf{The adult child in another city.} Gets a panicked call at 11pm. No baseline. No medicine list. No idea what the cardiologist said three months ago.
+  \item \textbf{The primary caregiver at home.} Carries all context mentally. Exhausting and fragile. One illness of their own and the system collapses.
+  \item \textbf{The patient themselves.} Repeats their history to every new doctor from memory, which is unreliable and incomplete.
+  \item \textbf{The consulting specialist.} Sees only what the patient brings. Usually, very little.
+\end{itemize}
+
+\subsection{The cost of fragmentation}
+
+\vspace{4pt}
+\begin{tabularx}{\linewidth}{@{}L{6.2cm} X@{}}
+\toprule
+\textbf{What happens} & \textbf{Concrete consequence} \\
+\midrule
+Reports do not connect across time & Creatinine trend invisible across three reports from different labs \\
+Medicine list lives in no single place & Cardiologist prescribes something conflicting with nephrology's drug \\
+Caregiver is the only source of truth & They travel for three days. Care degrades. \\
+Emergency context unavailable & ER doctor asks blood group. Family member panics and guesses. \\
+\bottomrule
+\end{tabularx}
+
+% ─── 2. SOLUTIONS CONSIDERED ─────────────────────────────────────────────────
+\section{Solutions Considered}
+
+\textbf{Option A --- Smart folder / Drive integration.}
+Auto-organise uploads into Google Drive folders by date and patient. Simple. Fast to build. Does not solve the insight problem. You still cannot answer ``what changed this month'' or ``what medicines does she take.'' It is a tidier mess.
+
+\textbf{Option B --- Chatbot over medical records.}
+Upload reports, ask questions in natural language. The problem: chatbots need a reason to exist. The actual need is ambient awareness, not Q\&A. A chatbot puts the cognitive load on the user to know what to ask. The caregiver calling from a different city does not have time to formulate queries.
+
+\textbf{Option C --- Living medical memory that updates with each report. \textit{(Chosen.)}}
+Each new report does not just get stored --- it gets understood and integrated into a single patient record. The AI extracts structured entities (diagnoses, medicines, lab values, follow-ups), surfaces changes from prior state, flags conflicts, and generates a ready-to-use doctor brief. This is the only option that moves the cognitive load off the human. The output is not a file. It is a current understanding of the patient.
+
+\subsection{What we deliberately did not build}
+
+A patient portal (adds login friction for caregivers who already face too much friction). A symptom checker (medico-legal exposure and not the actual gap). Native OCR from scratch (use an API --- the value is in the structuring layer, not text extraction).
+
+% ─── 3. WHAT WE'RE BUILDING ──────────────────────────────────────────────────
+\section{What We're Building}
+
+MedMemory is a family health memory layer. You drop in a report. The AI reads it, extracts structured entities, and integrates them into a living patient record --- a timeline that grows more useful with each upload rather than more cluttered.
+
+\subsection{How someone uses it}
+
+\vspace{4pt}
+\begin{tabularx}{\linewidth}{@{}L{0.4cm} L{2.6cm} X@{}}
+\toprule
+\textbf{\#} & \textbf{Step} & \textbf{What happens} \\
+\midrule
+1 & Upload & Drop a PDF or photograph of a report. Works via WhatsApp forward too. \\
+2 & AI processes & Extracts: diagnoses, medicines, lab values, doctor, date, follow-up instructions. Each entity confidence-scored. \\
+3 & Review & Low-confidence extractions flagged for human verification. One tap to confirm or correct. \\
+4 & Record updates & Timeline grows. Medicine list updates. Changes from prior reports surfaced. \\
+5 & Act on it & Doctor brief ready to print. Emergency page always current. Shareable with family. \\
+\bottomrule
+\end{tabularx}
+
+\vspace{6pt}
+\subsection{Core outputs}
+
+\vspace{4pt}
+\begin{tabularx}{\linewidth}{@{}L{3.0cm} X@{}}
+\toprule
+\textbf{Output} & \textbf{Description} \\
+\midrule
+Living timeline & Chronological patient history. Each event links to its source report. \\
+Unified medicine list & Across all doctors and hospitals. With confidence scores and conflict warnings. \\
+Doctor brief & Printable one-pager: conditions, medicines, recent changes, questions to ask. \\
+Emergency view & Blood group, allergies, medicines, contacts, insurance. Readable in ten seconds. \\
+WhatsApp ingest & Future: parent forwards a report photo on WhatsApp. It processes and updates the record. \\
+\bottomrule
+\end{tabularx}
+
+% ─── 4. WHERE AI IS LOAD-BEARING ─────────────────────────────────────────────
+\section{Where the AI Is Load-Bearing}
+
+The AI is not a chatbot bolted on. It is the structuring layer. Without it, the product is a file folder. With it, uploads become structured medical history.
+
+\begin{itemize}
+  \item \textbf{OCR and text extraction.} Turns photograph or PDF into readable text. Handles handwritten prescriptions and lab report formats across dozens of labs.
+  \item \textbf{Medical entity extraction.} Finds and labels diagnoses, drug names and dosage, lab values with units and reference ranges, procedure dates, doctor names, hospital names, and follow-up instructions.
+  \item \textbf{Conflict detection.} Flags when a new medicine conflicts with an existing one, or when a lab value diverges sharply from the patient's prior baseline.
+  \item \textbf{Doctor brief generation.} Synthesises current state into a structured printable one-pager, including auto-generated questions based on recent lab changes.
+  \item \textbf{Confidence scoring.} Assigns per-entity confidence. Anything below threshold is surfaced for human review. Not hidden.
+\end{itemize}
+
+% ─── 5. WHERE AI GETS IT WRONG ───────────────────────────────────────────────
+\section{Where AI Will Get It Wrong}
+
+\begin{warnbox}
+\textbf{This section is not a disclaimer. It is a design constraint.} Every failure mode below has a corresponding product decision. AI errors are surfaced to users, not hidden. Human correction is the path of least resistance.
+\end{warnbox}
+
+\vspace{6pt}
+\begin{tabularx}{\linewidth}{@{}L{4.4cm} L{2.4cm} X@{}}
+\toprule
+\textbf{Failure mode} & \textbf{Likelihood} & \textbf{Product response} \\
+\midrule
+Handwritten prescription misread --- drug name garbled or dosage wrong &
+High &
+Low confidence triggers mandatory verification flag. Medicine not added to active list until confirmed. \\
+\addlinespace
+Lab value extracted without unit (12.3 --- but mg/dL or mmol/L?) &
+Medium &
+Unit is a required field in the entity model. Missing unit renders extraction incomplete, not silently used in trend. \\
+\addlinespace
+Medicine duplication --- same drug, different brand name across reports &
+Medium &
+Fuzzy match plus pharmacopoeia lookup. Probable duplicates flagged for user confirmation, not auto-merged. \\
+\addlinespace
+Hallucinated entity --- diagnosis extracted that is not in the report &
+Low for structured reports; higher for narrative discharge summaries &
+Confidence below 80\% flagged. All AI extractions shown with source-text highlight for user verification. \\
+\addlinespace
+Outdated medicine carried forward --- stopped drug still in active list &
+High &
+Medicines older than 90 days without reconfirmation shown as ``check status'' rather than active. \\
+\addlinespace
+OCR fails on low-resolution photo (WhatsApp-compressed image) &
+Medium &
+Pre-OCR quality check. If text confidence below threshold, user prompted to re-upload or re-photograph. \\
+\bottomrule
+\end{tabularx}
+
+% ─── 6. TEST CASES ───────────────────────────────────────────────────────────
+\section{Test Cases and How to Test Them}
+
+\subsection{Happy path (must pass before ship)}
+
+\begin{enumerate}
+  \item \textbf{Upload a clear lab report PDF.} Creatinine, eGFR, and units all extracted correctly. Timeline event created with the correct date.
+  \item \textbf{Upload a report for a second family member.} Entities go to the correct patient. No cross-contamination.
+  \item \textbf{Same medicine appears in two reports.} Appears once in the active list. Not duplicated.
+  \item \textbf{Doctor brief generated after three or more reports.} Brief reflects current state, not just the last report. Lab trend visible.
+  \item \textbf{Emergency page opened.} All fields present. Phone numbers tappable. Blood group correct.
+\end{enumerate}
+
+\subsection{Expected-failure cases (must handle gracefully)}
+
+\begin{enumerate}
+  \item \textbf{Upload a blurry WhatsApp photo of a prescription.} OCR quality warning shown. User prompted to re-upload. No partial or wrong data silently added.
+  \item \textbf{Upload a report with an unrecognised drug name.} Entity flagged as low-confidence. User asked to verify. Not rejected silently.
+  \item \textbf{Upload the same report twice.} Duplicate detected. User warned. Second upload does not double the entities.
+  \item \textbf{Doctor brief requested with only one report in history.} Brief generated but explicitly notes: ``limited history --- only one report available.''
+  \item \textbf{Family member name with a typo in upload.} Does not create a ghost patient. Fuzzy match proposed.
+\end{enumerate}
+
+\subsection{How to run this before ship}
+
+Seed a test suite with twelve anonymised real-format reports: three lab reports, two discharge summaries, two prescriptions, two imaging reports, three blurry or degraded photographs. Run the extraction pipeline. Score entity recall, precision, and confidence calibration --- does a 70\% confidence score correspond to approximately 70\% accuracy in practice? Manual audit on 100\% of medicine extractions before launch. This is the highest-stakes field.
+
+\vspace{10pt}
+\rule{\linewidth}{0.6pt}
+
+% ─── GTM ─────────────────────────────────────────────────────────────────────
+\section*{Go-to-Market Note}
+
+\textit{Half a page, as requested. Sanity check, not a business plan.}
+
+\subsection*{How the first 100 users find out}
+
+The target early user is 28--35, lives in a metro, and manages health for a parent in a tier-2 city. They already feel the problem. They do not need convincing.
+
+\begin{itemize}
+  \item \textbf{WhatsApp communities.} Post in caregiver groups, NRI groups, chronic illness support circles. The hook is the WhatsApp upload flow --- it meets people where their report photos already live.
+  \item \textbf{One LinkedIn post.} Not a product ad. A story: ``My mother has three doctors and I live in Bangalore. This is how I fixed it.'' Shares do the distribution.
+  \item \textbf{Reddit and Quora.} r/india, r/IndianParents, r/ChronicIllness. Threads where people ask how to manage medical records for elderly parents. Answer genuinely, link as an aside.
+  \item \textbf{Doctor waiting rooms.} Printed QR cards. Doctors are often the ones who wish patients would arrive better prepared.
+\end{itemize}
+
+\subsection*{What to measure to know they're actually using it}
+
+Signups are noise. The metric that matters is \textbf{second upload rate}: what percentage of users who upload one report come back and upload a second within 30 days. That number tells you whether the product delivered enough value on the first use to earn the second.
+
+\vspace{4pt}
+\begin{tabularx}{\linewidth}{@{}L{7cm} X@{}}
+\toprule
+\textbf{Signal} & \textbf{What it tells you} \\
+\midrule
+Second upload rate (target: $>$40\% in 30 days) & Did the first experience create a reason to return? \\
+Doctor brief generated per report uploaded & Are users reaching the output, or dropping at the record stage? \\
+Verification rate on low-confidence entities & Are users trusting the AI enough to engage with corrections? \\
+Emergency page views & High = people using it for its core promise, not just filing. \\
+\midrule
+\textit{Metric to explicitly ignore: DAU} & \textit{This is not a daily-use product. Monthly active is the right unit.} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{8pt}
+
+One thing that would destroy early retention: a wrong medicine in the active list that a user does not catch. This is why human verification is in the critical path, not optional. The AI is wrong sometimes. The product has to be right.
+
+\end{document}
